@@ -34,37 +34,37 @@ const newSurvey = {
     console.log("Enquête mise à jour:", updatedSurvey);
 
     // Supprime l'enquête
-    // await deleteSurvey(newSurvey._id);
-    // console.log("Enquête supprimée avec succès.");
+    await deleteSurvey(newSurvey._id);
+    console.log("Enquête supprimée avec succès.");
 
     // Vous pouvez ajouter des opérations similaires pour les questions et les réponses
     // Exemple de création d'une nouvelle question
-    // const newQuestion = {
-    //   questionId: 1,
-    //   surveyId: newSurvey._id,
-    //   title: "Comment évalueriez-vous notre service?",
-    //   type: "rating",
-    //   options: {
-    //     minValue: 1,
-    //     maxValue: 5,
-    //     step: 1
-    //   }
-    // };
-    // await createQuestion(newQuestion);
-    // console.log('Nouvelle question créée avec succès.');
+    const newQuestion = {
+      questionId: 1,
+      surveyId: newSurvey._id,
+      title: "Comment évalueriez-vous notre service?",
+      type: "rating",
+      options: {
+        minValue: 1,
+        maxValue: 5,
+        step: 1
+      }
+    };
+    await createQuestion(newQuestion);
+    console.log('Nouvelle question créée avec succès.');
 
     // Lire la question créée
-    // const question = await readQuestion(newQuestion.questionId);
-    // console.log("Question lue:", question);
+    const question = await readQuestion(newQuestion.questionId);
+    console.log("Question lue:", question);
 
     // Mettre à jour la question
-    // const questionUpdate = { title: "Comment évalueriez-vous notre service global?" };
-    // await updateQuestion(newQuestion.questionId, questionUpdate);
-    // console.log('Question mise à jour avec succès.');
+    const questionUpdate = { title: "Comment évalueriez-vous notre service global?" };
+    await updateQuestion(newQuestion.questionId, questionUpdate);
+    console.log('Question mise à jour avec succès.');
 
     // Supprimer la question
-    // await deleteQuestion(newQuestion.questionId);
-    // console.log('Question supprimée avec succès.');
+    await deleteQuestion(newQuestion.questionId);
+    console.log('Question supprimée avec succès.');
 
   } catch (error) {
     console.error("Erreur lors de l'opération:", error);
