@@ -46,11 +46,9 @@ Pour démarrer l'application, exécutez la commande suivante :
 npm start
 ```
 
-## Authors
 
-ABC Corporation
 
-# Documentation des Fonctions et Exemples d'Utilisation
+# 5. Documentation des Fonctions et Exemples d'Utilisation
 
 Ce fichier montre comment utiliser les fonctions pour gérer les enquêtes, les questions et les réponses.
 
@@ -143,7 +141,7 @@ Met à jour les informations de la réponse spécifiée par l'ID avec les nouvel
 
 ## Fonction `deleteResponse`
 ````
-#### Description
+##Description
 Supprime la réponse spécifiée par l'ID.
 ````
 ## Authors
