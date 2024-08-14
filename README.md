@@ -32,8 +32,14 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
     ```bash
     npm install
     ```
+3. **Installez mongodb :**
 
-4. **Configurez la base de données :**
+    ```mongodb
+    npm install mongodb
+    ```
+
+
+5. **Configurez la base de données :**
 
     - Assurez-vous que MongoDB est en cours d'exécution sur votre machine locale.
     - Mettez les paramètres de connexion dans `config/database.js`.
@@ -48,7 +54,7 @@ npm start
 
 
 
-# 5. Documentation des Fonctions et Exemples d'Utilisation
+# 6. Documentation des Fonctions et Exemples d'Utilisation
 
 Ce fichier montre comment utiliser les fonctions pour gérer les enquêtes, les questions et les réponses.
 
