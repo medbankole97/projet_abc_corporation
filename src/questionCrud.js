@@ -1,10 +1,15 @@
-// src/config/questionCrud.js
 const { connect } = require('./config/database');
 
 // Create a new question
 async function createQuestion(question) {
   const { db, client } = await connect();
   try {
+    const existingQuestion = await db.collection('questions').findOne({ _id: question._id });
+    if (existingQuestion) {
+      console.log('Question with this _id already exists');
+      return; 
+    }
+
     const result = await db.collection('questions').insertOne(question);
     console.log(`New question created with the following id: ${result.insertedId}`);
   } finally {
@@ -17,7 +22,9 @@ async function readQuestion(questionId) {
   const { db, client } = await connect();
   try {
     const question = await db.collection('questions').findOne({ _id: questionId });
-    console.log(question);
+    if (!question) {
+      console.log('Question not found');
+    }
     return question;
   } finally {
     await client.close();
@@ -28,6 +35,12 @@ async function readQuestion(questionId) {
 async function updateQuestion(questionId, update) {
   const { db, client } = await connect();
   try {
+    const existingQuestion = await db.collection('questions').findOne({ _id: questionId });
+    if (!existingQuestion) {
+      console.log('No question found with the given _id');
+      return;
+    }
+    
     const result = await db.collection('questions').updateOne({ _id: questionId }, { $set: update });
     console.log(`${result.matchedCount} question(s) matched the filter, updated ${result.modifiedCount} question(s)`);
   } finally {
@@ -39,6 +52,12 @@ async function updateQuestion(questionId, update) {
 async function deleteQuestion(questionId) {
   const { db, client } = await connect();
   try {
+    const existingQuestion = await db.collection('questions').findOne({ _id: questionId });
+    if (!existingQuestion) {
+      console.log('No question found with the given _id');
+      return;
+    }
+
     const result = await db.collection('questions').deleteOne({ _id: questionId });
     console.log(`Deleted ${result.deletedCount} question(s)`);
   } finally {

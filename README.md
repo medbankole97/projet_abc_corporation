@@ -1,17 +1,17 @@
-# Survey App
+# *Survey App*
 
-## Description
+## *Description*
 
 Survey App est une application JavaScript simple permettant de gérer les fiches d'enquête de satisfaction des clients. L'application utilise une base de données MongoDB pour stocker les données et permet d'effectuer des opérations CRUD (Create, Read, Update, Delete) sur ces fiches.
 
-## Prérequis
+## *Prérequis*
 
 Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
 - [Node.js](https://nodejs.org/) (version 12 ou supérieure)
 - [MongoDB](https://www.mongodb.com/try/download/community) (version 4.0 ou supérieure)
 
-## Installation
+## *Installation*
 
 Suivez ces étapes pour configurer le projet sur votre machine locale :
 
@@ -24,7 +24,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
 2. **Accédez au dossier du projet :**
 
     ```bash
-    cd survey-app
+    cd abc-survery-app
     ```
 
 3. **Installez les dépendances :**
@@ -32,19 +32,13 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
     ```bash
     npm install
     ```
-3. **Installez mongodb :**
-
-    ```mongodb
-    npm install mongodb
-    ```
-
-
-5. **Configurez la base de données :**
+ 
+4. **Configurez la base de données :**
 
     - Assurez-vous que MongoDB est en cours d'exécution sur votre machine locale.
     - Mettez les paramètres de connexion dans `config/database.js`.
 
-## Utilisation
+## *Utilisation*
 
 Pour démarrer l'application, exécutez la commande suivante :
 
@@ -54,101 +48,59 @@ npm start
 
 
 
-# 6. Documentation des Fonctions et Exemples d'Utilisation
+### 5. ***Documentation des Fonctions***
 
 Ce fichier montre comment utiliser les fonctions pour gérer les enquêtes, les questions et les réponses.
 
-## Importation des Modules
 
-```javascript
-const { createSurvey, readSurvey, updateSurvey, deleteSurvey } = require('./surveyModule');
-const { createQuestion, readQuestion, updateQuestion, deleteQuestion } = require('./questionCrud');
-const { createResponse, readResponse, updateResponse, deleteResponse } = require('./responseCrud');
+# **surveyModule.js**
 
-# Documentation des Fonctions JavaScript
+`createSurvey`({surveyId: int, name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}) : Cette fonction crée une nouvelle enquête.
 
-## Modules Importés
+`readSurvey() `: les détails de l'enquête spécifiée par l'ID.
 
-- `createSurvey`, `readSurvey`, `updateSurvey`, `deleteSurvey` : Fonctions pour gérer les enquêtes.
-- `createQuestion`, `readQuestion`, `updateQuestion`, `deleteQuestion` : Fonctions pour gérer les questions.
-- `createResponse`, `readResponse`, `updateResponse`, `deleteResponse` : Fonctions pour gérer les réponses.
+`updateSurvey`(surveyId: int, {name: string, description: string, createdAt: date}) : Met à jour les informations de l'enquête spécifiée par l'ID avec les nouvelles données fournies dans `update`.
 
-## Exemple de Création, Lecture, Mise à Jour et Suppression d une Enquête
-
-### Description
-Cet exemple montre comment créer, lire, mettre à jour et supprimer une enquête en utilisant les fonctions fournies par le module `surveyModule`.
-
-### Code Complet
+`deleteSurvey() `: Supprime l'enquête spécifiée par l'ID.
 
 
-# Documentation des Fonctions JavaScript
 
-## Module `surveyModule`
-````
-### Fonction `createSurvey`
+.
 
-#### Description
-Crée une nouvelle enquête avec les détails fournis dans l'objet `survey`.
-````
-### Fonction `readSurvey`
+# **questionCrud.js**
 
-#### Description
-Lit les détails de l'enquête spécifiée par l'ID.
 
-````
-## Fonction `updateSurvey`
+`createQuestion`({questionId: int, surveyId: int, title: string, type: string, option: int}) : Cette fonction crée une nouvelle question pour une enquête spécifique.
 
-#### Description
-Met à jour les informations de l'enquête spécifiée par l'ID avec les nouvelles données fournies dans `update`.
 
-## Fonction `deleteSurvey`
+`readQuestion() `: Cette fonction lit les détails de la question spécifiée par l'ID.
 
-#### Description
-Supprime l'enquête spécifiée par l'ID.
 
-## Module `questionCrud`
-````
-## Fonction `createQuestion`
 
-#### Description
-Crée une nouvelle question pour une enquête spécifique.
-## Fonction `readQuestion`
+`updateQuestion`(questionId, {surveyId: int, name: string, type: string, option: int}) : Met à jour les informations de la question spécifiée par l'ID avec les nouvelles données fournies dans `update`.
 
-#### Description
-Lit les détails de la question spécifiée par l'ID.
-````
-## Fonction `updateQuestion`
 
-#### Description
-Met à jour les informations de la question spécifiée par l'ID avec les nouvelles données fournies dans `update`.
-````
-## Fonction `deleteQuestion`
+`deleteQuestion()` : Supprime la question spécifiée par l'ID.
 
-#### Description
-Supprime la question spécifiée par l'ID.
-````
-# Module `responseCrud`
+ # **responseCrud.js**
 
-### Fonction `createResponse`
 
-#### Description
+
+`createResponse`({responseId: int, questionId: int, title: string})
 Crée une nouvelle réponse pour une question spécifique.
-````
-### Fonction `readResponse`
 
-#### Description
-Lit les détails de la réponse spécifiée par l'ID.
-````
-## Fonction `updateResponse`
 
-#### Description
+
+`readResponse() `: Lit les détails de la réponse spécifiée par l'ID.
+
+
+
+`updateResponse`(responseId: int, {questionId: int, title: string})
 Met à jour les informations de la réponse spécifiée par l'ID avec les nouvelles données fournies dans `update`.
 
 
-## Fonction `deleteResponse`
-````
-##Description
-Supprime la réponse spécifiée par l'ID.
-````
-## Authors
-ABC Corporation
+
+`deleteResponse()` : Supprime la réponse spécifiée par l'ID.
+
+## Author
+[Mohamed Bankolé](https://github.com/medbankole97) 

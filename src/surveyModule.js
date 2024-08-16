@@ -1,19 +1,15 @@
-// src/config/surveyModule.js
 const { connect } = require('./config/database');
-const { ObjectId } = require('mongodb');
 
 // Crée une nouvelle enquête
 async function createSurvey(survey) {
   const { db, client } = await connect();
   try {
-    // Vérifie si une enquête avec le même _id existe déjà
     const existingSurvey = await db.collection('surveys').findOne({ _id: survey._id });
     if (existingSurvey) {
       console.log('Survey with this _id already exists');
-      return; // Sortir de la fonction si le document existe déjà
+      return; 
     }
 
-    // Insère la nouvelle enquête
     const result = await db.collection('surveys').insertOne(survey);
     console.log(`New survey created with the following id: ${result.insertedId}`);
   } catch (error) {
@@ -43,12 +39,14 @@ async function readSurvey(surveyId) {
 async function updateSurvey(surveyId, updates) {
   const { db, client } = await connect();
   try {
-    const result = await db.collection('surveys').updateOne({ _id: surveyId }, { $set: updates });
-    if (result.matchedCount === 0) {
+    const existingSurvey = await db.collection('surveys').findOne({ _id: surveyId });
+    if (!existingSurvey) {
       console.log('No survey found with the given _id');
-    } else {
-      console.log(`${result.matchedCount} survey(s) matched the filter, updated ${result.modifiedCount} survey(s)`);
+      return;
     }
+    
+    const result = await db.collection('surveys').updateOne({ _id: surveyId }, { $set: updates });
+    console.log(`${result.matchedCount} survey(s) matched the filter, updated ${result.modifiedCount} survey(s)`);
   } catch (error) {
     console.error('Error updating survey:', error);
   } finally {
@@ -60,12 +58,14 @@ async function updateSurvey(surveyId, updates) {
 async function deleteSurvey(surveyId) {
   const { db, client } = await connect();
   try {
-    const result = await db.collection('surveys').deleteOne({ _id: surveyId });
-    if (result.deletedCount === 0) {
+    const existingSurvey = await db.collection('surveys').findOne({ _id: surveyId });
+    if (!existingSurvey) {
       console.log('No survey found with the given _id');
-    } else {
-      console.log(`Deleted ${result.deletedCount} survey(s)`);
+      return;
     }
+
+    const result = await db.collection('surveys').deleteOne({ _id: surveyId });
+    console.log(`Deleted ${result.deletedCount} survey(s)`);
   } catch (error) {
     console.error('Error deleting survey:', error);
   } finally {
