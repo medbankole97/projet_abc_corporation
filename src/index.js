@@ -4,7 +4,7 @@ const { createResponse, readResponse, updateResponse, deleteResponse } = require
 
 // Exemple de création d'une enquête
 const newSurvey = {
-  _id: 1,
+  _id: 2,
   name: "Enquête de Satisfaction",
   description: "Enquête visant à évaluer la satisfaction des clients concernant nos produits.",
   createdAt: new Date(),
@@ -15,7 +15,7 @@ const newSurvey = {
 };
 
 const newQuestion = {
-  _id: 1,
+  _id: 3,
   surveyId: newSurvey._id,
   title: "Comment évalueriez-vous notre service?",
   type: "rating",
@@ -27,7 +27,7 @@ const newQuestion = {
 };
 
 const newResponse = {
-  _id: 1,
+  _id: 5,
   surveyId: newSurvey._id,
   questionId: newQuestion._id,
   response: "Très bon",
