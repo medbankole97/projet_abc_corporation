@@ -24,7 +24,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
 2. **Accédez au dossier du projet :**
 
     ```bash
-    cd abc-survery-app
+    cd abc-survey-app
     ```
 
 3. **Installez les dépendances :**
@@ -52,55 +52,152 @@ npm start
 
 Ce fichier montre comment utiliser les fonctions pour gérer les enquêtes, les questions et les réponses.
 
+**Module:** `Answer`
 
-# **surveyModule.js**
+Ce module gère les réponses associées aux questions dans les enquêtes.
 
-`createSurvey`({surveyId: int, name: string, description: string, createdAt: date}, createdBy:{employeeName: string, employeeRole: string}) : Cette fonction crée une nouvelle enquête.
+`createAnswer(answer)`
 
-`readSurvey() `: les détails de l'enquête spécifiée par l'ID.
+ Description: Cette fonction permet de créer une nouvelle réponse pour une question dans une enquête.
+    
 
-`updateSurvey`(surveyId: int, {name: string, description: string, createdAt: date}) : Met à jour les informations de l'enquête spécifiée par l'ID avec les nouvelles données fournies dans `update`.
+```  créer une nouvelle réponse
 
-`deleteSurvey() `: Supprime l'enquête spécifiée par l'ID.
+ const newSurvey = {   
+            id: 1,
+            name: "Enquête de Satisfaction 001",
+            description: "Enquête visant à évaluer la satisfaction des clients concernant nos services.",
+            createdAt: "2024-07-25T08:00:00Z",
+            createdBy: {
+                employeeName: "Camara",
+                employeeRole: "Responsable du service client"
+            }
+        };
+const result = await createAnswer(newAnswer);
+```
+`getAnswers()`
 
+Description: Récupère toutes les réponses stockées dans la collection survey_answers.
 
+```Lire toutes les réponses
+const answers = await getAnswers();
+console.log(answers);
+```
+`getAnswerById(id)`
 
-.
+Description: Récupère une réponse spécifique en fonction de son id
 
-# **questionCrud.js**
+```Récupère une réponse spécifique
+await getQuestionById(1);
+```
+`updateAnswer(id, update)`
 
+Description: Met à jour une réponse existante avec de nouvelles informations.
 
-`createQuestion`({questionId: int, surveyId: int, title: string, type: string, option: int}) : Cette fonction crée une nouvelle question pour une enquête spécifique.
+```Mettre à jour une reponse
+await updateQuestion(1, { title: "Comment avez-vous entendu parler de nous ?" });
+```
+`deleteAnswer(id)`
 
+Description: Supprime une réponse de la collection survey_answers en fonction de son id.
 
-`readQuestion() `: Cette fonction lit les détails de la question spécifiée par l'ID.
+```Supprimer une reponse
+await deleteQuestion(1);
+```
+**Module :**  `Question`
 
+Ce module gère les questions dans les enquêtes.
 
+`createQuestion(question)`
 
-`updateQuestion`(questionId, {surveyId: int, name: string, type: string, option: int}) : Met à jour les informations de la question spécifiée par l'ID avec les nouvelles données fournies dans `update`.
+Description: Cette fonction permet de créer une nouvelle question dans une enquête.
 
+```Créer une nouvelle question
+const newQuestion = {
+            id: 1,
+            surveyId: 1,
+            title: "Comment évalueriez-vous notre service ?",
+            type: "rating",
+            options: {
+                minValue: 1,
+                maxValue: 5,
+                step: 1
+            }
+        };
+const result = await createQuestion(newQuestion);
+```
 
-`deleteQuestion()` : Supprime la question spécifiée par l'ID.
+`getQuestions()`
 
- # **responseCrud.js**
+Description: Récupère toutes les questions stockées dans la collection survey_questions.
+````Lire les questions 
+const questions = await getQuestions();
+    console.log(questions);
+````
+`getQuestionById(id)`
 
+Description: Récupère une question spécifique en fonction de son id.
+```Lire une question
+await getQuestionById(1);
+```
+`updateQuestion(id, update)`
 
+Description: Met à jour une question existante avec de nouvelles informations.
+```Mettre à jour une question
+await updateQuestion(1, { title: "Comment avez-vous entendu parler de nous ?" });
+```
+`deleteQuestion(id)`
 
-`createResponse`({responseId: int, questionId: int, title: string})
-Crée une nouvelle réponse pour une question spécifique.
+Description: Supprime une question de la collection survey_questions en fonction de son id.
+```Supprimer une question
+await deleteQuestion(1);
+```
+**Module :**  `Survey`
 
+Ce module gère les enquêtes elles-mêmes.
 
+`createSurvey(survey)`
 
-`readResponse() `: Lit les détails de la réponse spécifiée par l'ID.
+Description: Cette fonction permet de créer une nouvelle enquête.`
+```Créer une nouvelle enquete
+async function run() {
+    try {
+        const newSurvey = {   
+            id: 2,
+            name: "Enquête de Satisfaction 001",
+            description: "Enquête visant à évaluer la satisfaction des clients concernant nos services.",
+            createdAt: "2024-07-25T08:00:00Z",
+            createdBy: {
+                employeeName: "Mamadou Ba",
+                employeeRole: "Responsable du service client"
+            }
+        };
+        await createSurvey(newSurvey);
+```
+`getSurveys()`
 
+Description: Récupère toutes les enquêtes stockées dans la collection surveys.
+```Recupere les enquetes
+await getSurveys();
+```
+`getSurveyById(id)`
 
+Description: Récupère une enquête spécifique en fonction de son id.
+```Lire une enquete spécifique
+await getSurveyById(1);
+```
+`updateSurvey(id, update)`
 
-`updateResponse`(responseId: int, {questionId: int, title: string})
-Met à jour les informations de la réponse spécifiée par l'ID avec les nouvelles données fournies dans `update`.
+Description: Met à jour une enquête existante avec de nouvelles informations.
+```Metre à jour une enquete
+await updateSurvey(1, { name: "Enquête de Satisfaction Mise à Jour" });
+```
+`deleteSurvey(id)`
 
+Description: Supprime une enquête de la collection surveys en fonction de son id.
+```Supprimer une enquête
+await deleteSurvey(1);
 
-
-`deleteResponse()` : Supprime la réponse spécifiée par l'ID.
-
+```
 ## Author
 [Mohamed Bankolé](https://github.com/medbankole97) 

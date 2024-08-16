@@ -1,68 +1,66 @@
-const { createSurvey, readSurvey, updateSurvey, deleteSurvey } = require('./surveyModule');
-const { createQuestion, readQuestion, updateQuestion, deleteQuestion } = require('./questionCrud');
-const { createResponse, readResponse, updateResponse, deleteResponse } = require('./responseCrud');
+const { createSurvey, getSurveys, getSurveyById, updateSurvey, deleteSurvey } = require('./surveyModule');
+const { createQuestion, getQuestions, getQuestionById, updateQuestion, deleteQuestion } = require('./questionModule');
+const { createAnswer, getAnswers, getAnswerById, updateAnswer, deleteAnswer } = require('./answerModule');
 
-// Exemple de création d'une enquête
-const newSurvey = {
-  _id: 2,
-  name: "Enquête de Satisfaction",
-  description: "Enquête visant à évaluer la satisfaction des clients concernant nos produits.",
-  createdAt: new Date(),
-  createdBy: {
-    employeeName: "Mamadou Ba",
-    employeeRole: "Responsable entreprise"
-  }
-};
+// Assuming there's a closeConnection function
+const { closeConnection } = require('./config/database');
 
-const newQuestion = {
-  _id: 3,
-  surveyId: newSurvey._id,
-  title: "Comment évalueriez-vous notre service?",
-  type: "rating",
-  options: {
-    minValue: 1,
-    maxValue: 5,
-    step: 1
-  }
-};
+async function run() {
+    try {
+        const newSurvey = {   
+            id: 2,
+            name: "Enquête de Satisfaction 001",
+            description: "Enquête visant à évaluer la satisfaction des clients concernant nos services.",
+            createdAt: "2024-07-25T08:00:00Z",
+            createdBy: {
+                employeeName: "Mamadou Ba",
+                employeeRole: "Responsable du service client"
+            }
+        };
+        await createSurvey(newSurvey);
 
-const newResponse = {
-  _id: 5,
-  surveyId: newSurvey._id,
-  questionId: newQuestion._id,
-  response: "Très bon",
-  respondedAt: new Date()
-};
+        await getSurveys();
+        await updateSurvey(2, { name: "Enquête de Satisfaction Mise à Jour" });
+        await getSurveyById(2);
+        await deleteSurvey(2);
 
-(async () => {
-  try {
-    // Opérations pour l'enquête
-    await createSurvey(newSurvey);
-    const survey = await readSurvey(newSurvey._id);
-    console.log("Enquête lue:", survey);
-    await updateSurvey(newSurvey._id, { description: "Nouvelle description de l'enquête" });
-    const updatedSurvey = await readSurvey(newSurvey._id);
-    console.log("Enquête mise à jour:", updatedSurvey);
-    await deleteSurvey(newSurvey._id);
+        console.log("\n==== Gestion des Questions ====");
+        const newQuestion = {
+            id: 2,
+            surveyId: 2,
+            title: "Comment évalueriez-vous notre service ?",
+            type: "rating",
+            options: {
+                minValue: 1,
+                maxValue: 5,
+                step: 1
+            }
+        };
+        await createQuestion(newQuestion);
 
-    // Opérations pour la question
-    await createQuestion(newQuestion);
-    const question = await readQuestion(newQuestion._id);
-    console.log("Question lue:", question);
-    await updateQuestion(newQuestion._id, { title: "Comment évalueriez-vous notre service global?" });
-    const updatedQuestion = await readQuestion(newQuestion._id);
-    console.log("Question mise à jour:", updatedQuestion);
-    await deleteQuestion(newQuestion._id);
+        await getQuestions();
+        await getQuestionById(2);
+        await updateQuestion(2, { title: "Comment avez-vous entendu parler de nous ?" });
+        await deleteQuestion(2);
 
-    // Opérations pour la réponse
-    await createResponse(newResponse);
-    const response = await readResponse(newResponse._id);
-    console.log("Réponse lue:", response);
-    await updateResponse(newResponse._id, { response: "Excellent" });
-    const updatedResponse = await readResponse(newResponse._id);
-    console.log("Réponse mise à jour:", updatedResponse);
-    await deleteResponse(newResponse._id);
-  } catch (error) {
-    console.error("Erreur lors de l'opération:", error);
-  }
-})();
+        console.log("\n==== Gestion des Réponses ====");
+        const newAnswer = {
+            id: 2,
+            questionId: 2,
+            title: "Satisfait"
+        };
+        await createAnswer(newAnswer);
+
+        await getAnswers();
+        await getAnswerById(2);
+        await updateAnswer(2, { title: "Très satisfait" });
+        await deleteAnswer(2);
+    } catch (error) {
+        console.error("Une erreur s'est produite:", error);
+    } finally {
+        await closeConnection();
+        console.log("Connexion fermée.");
+    }
+}
+
+run();
