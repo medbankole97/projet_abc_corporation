@@ -64,12 +64,12 @@ Ce module gère les réponses associées aux questions dans les enquêtes.
 ```  créer une nouvelle réponse
 
  const newSurvey = {   
-            id: 1,
+            id: 2,
             name: "Enquête de Satisfaction 001",
             description: "Enquête visant à évaluer la satisfaction des clients concernant nos services.",
             createdAt: "2024-07-25T08:00:00Z",
             createdBy: {
-                employeeName: "Camara",
+                employeeName: "Mamadou Ba",
                 employeeRole: "Responsable du service client"
             }
         };
@@ -88,21 +88,21 @@ console.log(answers);
 Description: Récupère une réponse spécifique en fonction de son id
 
 ```Récupère une réponse spécifique
-await getQuestionById(1);
+await getQuestionById(2);
 ```
 `updateAnswer(id, update)`
 
 Description: Met à jour une réponse existante avec de nouvelles informations.
 
 ```Mettre à jour une reponse
-await updateQuestion(1, { title: "Comment avez-vous entendu parler de nous ?" });
+await updateQuestion(2, { title: "Comment avez-vous entendu parler de nous ?" });
 ```
 `deleteAnswer(id)`
 
 Description: Supprime une réponse de la collection survey_answers en fonction de son id.
 
 ```Supprimer une reponse
-await deleteQuestion(1);
+await deleteQuestion(2);
 ```
 **Module :**  `Question`
 
@@ -114,8 +114,8 @@ Description: Cette fonction permet de créer une nouvelle question dans une enqu
 
 ```Créer une nouvelle question
 const newQuestion = {
-            id: 1,
-            surveyId: 1,
+            id: 2,
+            surveyId: 2,
             title: "Comment évalueriez-vous notre service ?",
             type: "rating",
             options: {
@@ -138,19 +138,19 @@ const questions = await getQuestions();
 
 Description: Récupère une question spécifique en fonction de son id.
 ```Lire une question
-await getQuestionById(1);
+await getQuestionById(2);
 ```
 `updateQuestion(id, update)`
 
 Description: Met à jour une question existante avec de nouvelles informations.
 ```Mettre à jour une question
-await updateQuestion(1, { title: "Comment avez-vous entendu parler de nous ?" });
+await updateQuestion(2, { title: "Comment avez-vous entendu parler de nous ?" });
 ```
 `deleteQuestion(id)`
 
 Description: Supprime une question de la collection survey_questions en fonction de son id.
 ```Supprimer une question
-await deleteQuestion(1);
+await deleteQuestion(2);
 ```
 **Module :**  `Survey`
 
@@ -184,19 +184,19 @@ await getSurveys();
 
 Description: Récupère une enquête spécifique en fonction de son id.
 ```Lire une enquete spécifique
-await getSurveyById(1);
+await getSurveyById(2);
 ```
 `updateSurvey(id, update)`
 
 Description: Met à jour une enquête existante avec de nouvelles informations.
 ```Metre à jour une enquete
-await updateSurvey(1, { name: "Enquête de Satisfaction Mise à Jour" });
+await updateSurvey(2, { name: "Enquête de Satisfaction Mise à Jour" });
 ```
 `deleteSurvey(id)`
 
 Description: Supprime une enquête de la collection surveys en fonction de son id.
 ```Supprimer une enquête
-await deleteSurvey(1);
+await deleteSurvey(2);
 
 ```
 ## Author

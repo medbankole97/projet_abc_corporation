@@ -5,6 +5,7 @@ const { createAnswer, getAnswers, getAnswerById, updateAnswer, deleteAnswer } = 
 // Assuming there's a closeConnection function
 const { closeConnection } = require('./config/database');
 
+        // Gestion des Enquetes
 async function run() {
     try {
         const newSurvey = {   
@@ -24,7 +25,7 @@ async function run() {
         await getSurveyById(2);
         await deleteSurvey(2);
 
-        console.log("\n==== Gestion des Questions ====");
+        // Gestion des Questions
         const newQuestion = {
             id: 2,
             surveyId: 2,
@@ -43,7 +44,7 @@ async function run() {
         await updateQuestion(2, { title: "Comment avez-vous entendu parler de nous ?" });
         await deleteQuestion(2);
 
-        console.log("\n==== Gestion des Réponses ====");
+        // Gestion des Réponses
         const newAnswer = {
             id: 2,
             questionId: 2,
